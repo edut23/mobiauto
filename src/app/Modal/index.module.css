@@ -1,0 +1,15 @@
+.modal{
+    background-color: #FFFFFF;
+    box-shadow: 0.5px 2px 2px 0.5px #d9d9d9;
+    border-radius: 5px;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    min-width: 50%;
+}
+
+.buttonConfirm{
+    margin-top: 1em;
+}
