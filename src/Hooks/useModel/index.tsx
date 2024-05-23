@@ -14,7 +14,7 @@ interface Model{
     id: number
 }
 
-const useModel = () => {
+const useModel = (): Model[] => {
     const [model, setModel] = useState<Model[]>([]);
     const {form} = useMyContext();
 
@@ -23,7 +23,6 @@ const useModel = () => {
             let temp: Model[] = []
             try{
                 const data: ModelData[] = await getModel(form.marca.toString());
-                console.log(data)
                 data.map((item, idx) => {
                     temp[idx] = {label: item.nome, id: parseInt(item.codigo)}
                 })

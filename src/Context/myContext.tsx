@@ -1,5 +1,4 @@
 'use client';
-import useModel from '@/Hooks/useModel';
 import React, { createContext, useState, ReactNode, useContext, useEffect, useMemo } from 'react';
 
 interface Form{
@@ -26,19 +25,14 @@ interface MyProviderProps {
 
 export const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
   const [form, setForm] = useState<Form>({marca: 0, modelo: 0, ano: 0})
-  //const brand = useBrand();
-  const model = useModel();
 
   const memoBrand = useMemo(() => ({form, setForm}),[form])
 
-  useEffect(() => {
-    console.log(form);
-  },[form])
-
-  useEffect(() => {
+  /*useEffect(() => {
     if(form.modelo !== 0)
       setForm(prevState => ({...prevState, modelo: 0}))
-  }, [model])
+  }, [form.marca])*/
+
 
   return (
     <MyContext.Provider value={memoBrand}>

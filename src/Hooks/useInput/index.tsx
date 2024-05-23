@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 
 interface Form{
     marca: number
@@ -20,9 +20,9 @@ interface InputProps{
 }
 
 const useInput = ({type, setValue, options}: InputProps) => {
-    const changeHandler = (e: Model | null) =>{
+    const changeHandler = useCallback((e: Model | null) =>{
         setValue(prevState => ({...prevState, [type]: e?.id}))
-    }
+    }, [type, setValue])
 
     return changeHandler;
 }

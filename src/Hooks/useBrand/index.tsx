@@ -1,7 +1,7 @@
 'use client'
 
 import getBrand from "@/API/brand";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface BrandData{
     codigo: string;
@@ -13,25 +13,32 @@ interface Brand{
     id: number
 }
 
-const useBrand = () => {
+const useBrand = (): Brand[] => {
     const [brand, setBrand] = useState<Brand[]>([])
+    const isMounted = useRef(false);
 
     useEffect(() => {
-        const fetchData = async() => {
-            let temp: Brand[] = []
-            try{
-                const data: BrandData[] = await getBrand();
-                data.map((item, idx) => {
-                    temp[idx] = {label: item.nome, id: parseInt(item.codigo)}
-                })
-                setBrand(temp);
+        if(!isMounted.current){
+            const fetchData = async() => {
+                let temp: Brand[] = []
+                try{
+                    const data: any[] = await getBrand();
+                    data.map((item, idx) => {
+                        temp[idx] = {label: item.nome, id: parseInt(item.codigo)}
+                    })
+                    console.log(data)
+                    setBrand(temp);
+                }
+                catch(error){
+                    console.error(error);
+                }
             }
-            catch(error){
-                console.error(error);
-            }
+            
+            console.log("use")
+
+            fetchData();
+            isMounted.current = true;
         }
-    
-        fetchData();
     },[])
 
 

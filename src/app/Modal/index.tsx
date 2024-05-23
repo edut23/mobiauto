@@ -4,8 +4,6 @@ import styles from "./index.module.css";
 import SearchInput from "./SearchInput";
 import useModal from "@/Hooks/useModal";
 import { useMyContext } from "@/Context/myContext";
-import { useEffect } from "react";
-import useModel from "@/Hooks/useModel";
 
 
 const Modal: React.FC = () => {
