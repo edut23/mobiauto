@@ -2,18 +2,19 @@
 import React, { createContext, useState, ReactNode, useContext, useEffect, useMemo } from 'react';
 
 interface Form{
-  marca: number
-  modelo: number
-  ano: number
+  marca: string
+  modelo: string
+  ano: string
+  event: boolean
 }
 
 interface MyContextType {
     form: Form;
-    setForm: React.Dispatch<React.SetStateAction<Form>>;
+    setForm: React.Dispatch<React.SetStateAction<Form>>
   }
   
   const defaultState: MyContextType = {
-    form: {marca: 0, modelo: 0, ano: 0},
+    form: {marca: "", modelo: "", ano: "", event: false},
     setForm: () => {},
   };
 
@@ -24,14 +25,20 @@ interface MyProviderProps {
   }
 
 export const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
-  const [form, setForm] = useState<Form>({marca: 0, modelo: 0, ano: 0})
+  const [form, setForm] = useState<Form>({marca: "", modelo: "", ano: "", event: false})
+
+  useEffect(() => {
+    if(form.modelo !== "")
+      setForm(prevState => ({...prevState, modelo: "", ano: ""}))
+  }, [form.marca])
+
+  useEffect(() => {
+    if(form.ano !== "")
+      setForm(prevState => ({...prevState, ano: ""}))
+  }, [form.modelo])
+
 
   const memoBrand = useMemo(() => ({form, setForm}),[form])
-
-  /*useEffect(() => {
-    if(form.modelo !== 0)
-      setForm(prevState => ({...prevState, modelo: 0}))
-  }, [form.marca])*/
 
 
   return (

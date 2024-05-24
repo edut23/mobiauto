@@ -1,43 +1,56 @@
 import useInput from "@/Hooks/useInput"
-import { Autocomplete, TextField } from "@mui/material"
+import { Autocomplete, MenuItem, TextField, Select, InputLabel, FormControl } from "@mui/material"
 
 interface Model{
     label: string,
-    id: number
+    id: string
 }
 
 interface Form{
-    marca: number
-    modelo: number
-    ano: number
+    marca: string
+    modelo: string
+    ano: string
+    event: boolean
 }
 
 interface SearchProps {
     type: string,
     options: Model[],
-    value: Model,
+    value: string,
     setValue: React.Dispatch<React.SetStateAction<Form>>,
 }
 
 
 const SearchInput: React.FC<SearchProps> = ({type, options, value, setValue}) => {
 
-    const changeHandler = useInput({type, setValue, options});
+    const {inputValue, changeHandler} = useInput({type, value, setValue, options});
+
+    console.log(type, value);
 
     return(
-        <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={options}
-            value={value}
-            onChange={(e: any, newValue: Model | null) => {
-                if(newValue)
-                    changeHandler(newValue)
-            }}
-            sx={{ width: "calc(100% - 2em)" }}
-            renderInput={(params) => <TextField {...params} label="Movie" />}
-            disabled={options.length < 1}
-        />
+    <FormControl sx={{minWidth: "80%"}} required disabled={options.length < 1}>
+        <InputLabel id="demo-simple-select-standard-label">{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={inputValue}
+          onChange={changeHandler}
+          label={type}
+          MenuProps={{ sx: {maxHeight: 300},
+            PaperProps: {maxHeight: 300},
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+            transformOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+        }}
+        >
+            {options.map((item) => <MenuItem key={item.id} value={item.id}>{item?.label}</MenuItem>)}
+        </Select>
+        </FormControl>
     )
 }
 

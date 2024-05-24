@@ -10,7 +10,7 @@ interface BrandData{
 
 interface Brand{
     label: string
-    id: number
+    id: string
 }
 
 const useBrand = (): Brand[] => {
@@ -22,9 +22,9 @@ const useBrand = (): Brand[] => {
             const fetchData = async() => {
                 let temp: Brand[] = []
                 try{
-                    const data: any[] = await getBrand();
+                    const data: BrandData[] = await getBrand();
                     data.map((item, idx) => {
-                        temp[idx] = {label: item.nome, id: parseInt(item.codigo)}
+                        temp[idx] = {label: item.nome, id: item.codigo}
                     })
                     console.log(data)
                     setBrand(temp);

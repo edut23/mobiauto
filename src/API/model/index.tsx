@@ -1,6 +1,6 @@
-const getModel = async (model: string) => {
+const getModel = async (brand: string) => {
 
-    const response = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${model}/modelos`);
+    const response = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${brand}/modelos`);
     
     const options = await response.json();
 

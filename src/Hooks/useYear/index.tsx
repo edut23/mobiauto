@@ -1,46 +1,46 @@
 'use client'
 
-import getModel from "@/API/model";
+import getYear from "@/API/year";
 import { useMyContext } from "@/Context/myContext";
 import { useEffect, useState } from "react";
 
-interface ModelData{
+interface YearData{
     codigo: string;
     nome: string;
 }
 
-interface Model{
+interface Year{
     label: string
     id: string
 }
 
-const useModel = (): Model[] => {
-    const [model, setModel] = useState<Model[]>([]);
+const useYear = (): Year[] => {
+    const [year, setYear] = useState<Year[]>([]);
     const {form} = useMyContext();
 
     useEffect(() => {
         const fetchData = async() => {
-            let temp: Model[] = []
+            let temp: Year[] = []
             try{
-                const data: ModelData[] = await getModel(form.marca);
+                const data: YearData[] = await getYear(form.marca, form.modelo);
                 data.map((item, idx) => {
                     temp[idx] = {label: item.nome, id: item.codigo}
                 })
-                setModel(temp);
+                setYear(temp);
             }
             catch(error){
                 console.error(error);
             }
         }
         
-        if(form.marca !== "")
+        if(form.modelo !== "")
             fetchData();
         else
-            setModel([])
-    },[form.marca])
+            setYear([])
+    },[form.modelo])
 
 
-    return model;
+    return year;
 }
 
-export default useModel;
+export default useYear;
