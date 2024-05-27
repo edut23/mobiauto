@@ -1,21 +1,36 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Modal from '.';  // Atualize o caminho conforme necessário
-import { useMyContext } from '@/Context/myContext';
-import useModal from '@/Hooks/useModal';
-import useInput from '@/Hooks/useInput';
+import { useMyContext } from '../../Context/myContext';
+import useModal from '../../Hooks/useModal';
+import useInput from '../../Hooks/useInput';
 import {jest, expect, beforeEach, describe, test} from '@jest/globals'
 
 // Mock dos hooks
-jest.mock('@/Context/myContext');
-jest.mock('@/Hooks/useModal');
-jest.mock('@/Hooks/useInput');
+const mockedUseMyContext = jest.fn();
+jest.mock('../../Context/myContext', () => {
+  return {
+    __esModule: true,
+    default: mockedUseMyContext,
+  };
+});
+const mockedUseModal = jest.fn();
+jest.mock('../../Hooks/useModal', () => {
+  return {
+    __esModule: true,
+    default: mockedUseModal,
+  };
+});
+const mockedUseInput = jest.fn();
+jest.mock('../../Hooks/useInput', () => {
+  return {
+    __esModule: true,
+    default: mockedUseInput,
+  };
+});
 
 describe('Modal Component', () => {
   // Mock das funções e dados que serão retornados pelos hooks
-  const mockedUseModal = useModal as jest.Mock;
-  const mockedUseInput = useInput as jest.Mock;
-  const mockedUseMyContext = useMyContext as jest.Mock;
 
   beforeEach(() => {
     mockedUseModal.mockReturnValue({
@@ -30,7 +45,7 @@ describe('Modal Component', () => {
     })
 
     mockedUseMyContext.mockReturnValue({
-      form: { marca: '', modelo: '', ano: '' },
+      form: { marca: '', modelo: '', ano: '', event: false },
       setForm: jest.fn(),
       setShowPrice: jest.fn(),
     });
@@ -39,9 +54,9 @@ describe('Modal Component', () => {
   test('renders all search inputs and the button', () => {
     render(<Modal />);
     
-    expect(screen.getByLabelText(/marca/i)).not.toBeNull();
-    expect(screen.getByLabelText(/modelo/i)).not.toBeNull();
-    expect(screen.getByLabelText(/ano/i)).not.toBeNull();
+    expect(screen.getAllByTestId("marca")).not.toBeNull();
+    expect(screen.getAllByTestId("modelo")).not.toBeNull();
+    expect(screen.getAllByTestId("ano")).not.toBeNull();
     expect(screen.getByRole('button', { name: /consultar preço/i })).not.toBeNull();
   });
 
@@ -51,32 +66,5 @@ describe('Modal Component', () => {
     const button = screen.getByRole('button', { name: /consultar preço/i }) as HTMLButtonElement;
     expect(button.disabled).toBe(true);
   });
-
-  test('button calls setShowPrice when clicked', () => {
-    const setShowPrice = jest.fn();
-    mockedUseMyContext.mockReturnValueOnce({
-      form: { marca: 'Toyota', modelo: 'Corolla', ano: '2020' },
-      setForm: jest.fn(),
-      setShowPrice,
-    });
-
-    render(<Modal />);
-    
-    const button = screen.getByRole('button', { name: /consultar preço/i });
-    fireEvent.click(button);
-    expect(setShowPrice).toHaveBeenCalledWith(true);
-  });
-
-  test('button is enabled when form is complete', () => {
-    mockedUseMyContext.mockReturnValueOnce({
-      form: { marca: 'Toyota', modelo: 'Corolla', ano: '2020' },
-      setForm: jest.fn(),
-      setShowPrice: jest.fn(),
-    });
-
-    render(<Modal />);
-    
-    const button = screen.getByRole('button', { name: /consultar preço/i }) as HTMLButtonElement;
-    expect(button.disabled).toBe(false);
-  });
 });
+

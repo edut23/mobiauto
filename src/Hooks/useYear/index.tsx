@@ -1,7 +1,7 @@
 'use client'
 
-import getYear from "@/API/year";
-import { useMyContext } from "@/Context/myContext";
+import getYear from "../../API/year";
+import { useMyContext } from "../../Context/myContext";
 import { useEffect, useState } from "react";
 
 interface YearData{

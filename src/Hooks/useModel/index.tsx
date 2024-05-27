@@ -1,7 +1,7 @@
 'use client'
 
-import getModel from "@/API/model";
-import { useMyContext } from "@/Context/myContext";
+import getModel from "../../API/model";
+import { useMyContext } from "../../Context/myContext";
 import { useEffect, useState } from "react";
 
 interface ModelData{

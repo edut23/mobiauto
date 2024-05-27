@@ -1,4 +1,4 @@
-import useInput from "@/Hooks/useInput"
+import useInput from "../../../Hooks/useInput"
 import { MenuItem, Select, InputLabel, FormControl } from "@mui/material"
 
 interface Model{
@@ -27,10 +27,11 @@ const SearchInput: React.FC<SearchProps> = ({type, options, value, setValue}) =>
 
     return(
     <FormControl sx={{minWidth: "80%"}} required disabled={options.length < 1}>
-        <InputLabel id="demo-simple-select-standard-label">{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}</InputLabel>
+        <InputLabel data-testid={type} id="demo-simple-select-standard-label">{type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
+          data-testid={type + "select"}
           value={inputValue}
           onChange={changeHandler}
           label={type}
@@ -46,7 +47,7 @@ const SearchInput: React.FC<SearchProps> = ({type, options, value, setValue}) =>
               },
         }}
         >
-            {options.map((item) => <MenuItem key={item.id} value={item.id}>{item?.label}</MenuItem>)}
+            {options.map((item, idx) => <MenuItem data-testid={idx + "item"} key={item.id} value={item.id}>{item?.label}</MenuItem>)}
         </Select>
         </FormControl>
     )

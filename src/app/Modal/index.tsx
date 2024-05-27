@@ -2,8 +2,8 @@
 import { Button } from "@mui/material";
 import styles from "./index.module.css";
 import SearchInput from "./SearchInput";
-import useModal from "@/Hooks/useModal";
-import { useMyContext } from "@/Context/myContext";
+import useModal from "../../Hooks/useModal";
+import { useMyContext } from "../../Context/myContext";
 
 const Modal: React.FC = () => {
     const {brand, model, year} = useModal();

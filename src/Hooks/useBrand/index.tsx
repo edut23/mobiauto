@@ -1,6 +1,6 @@
 'use client'
 
-import getBrand from "@/API/brand";
+import getBrand from "../../API/brand";
 import { useEffect, useRef, useState } from "react";
 
 interface BrandData{
