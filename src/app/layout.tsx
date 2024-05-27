@@ -7,7 +7,7 @@ import { MyProvider } from "@/Context/myContext"
 import "./globals.css"
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {
