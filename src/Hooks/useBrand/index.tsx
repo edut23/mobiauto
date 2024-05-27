@@ -26,15 +26,12 @@ const useBrand = (): Brand[] => {
                     data.map((item, idx) => {
                         temp[idx] = {label: item.nome, id: item.codigo}
                     })
-                    console.log(data)
                     setBrand(temp);
                 }
                 catch(error){
                     console.error(error);
                 }
             }
-            
-            console.log("use")
 
             fetchData();
             isMounted.current = true;

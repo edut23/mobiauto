@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   padding: 6rem;
-  min-height: 100vh;
   background-color: #F9F6FC;
   color: #424242;
   font-family: 'Roboto';

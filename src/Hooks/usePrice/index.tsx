@@ -28,7 +28,7 @@ const usePrice = (): PriceData => {
         MesReferencia: "",
         SiglaCombustivel: "",
     });
-    const {form, setForm} = useMyContext();
+    const {form} = useMyContext();
 
     useEffect(() => {
         const fetchData = async() => {
@@ -40,11 +40,7 @@ const usePrice = (): PriceData => {
                 console.error(error);
             }
         }
-        
-        //if(form.event){
-            fetchData();
-            //setForm({marca: "", modelo: "", ano: "", event: false})
-        //}
+        fetchData();
     },[])
 
 

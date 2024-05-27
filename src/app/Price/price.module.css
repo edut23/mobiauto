@@ -1,0 +1,25 @@
+.price {
+  display: flex;
+  flex-direction: column;
+  background-color: #DCF5F2;
+  color: #424242;
+  width: -webkit-fill-available;
+  font-family: 'Roboto';
+  align-items: center;
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 6em;
+}
+
+.value{
+  background-color: #00A38C;
+  color: #FFFFFF;
+  padding: 0.5em;
+  border-radius: 40px;
+  margin: 0;
+}
+
+.smText{
+  color:#97A1A1;
+  font-weight: 300;
+}

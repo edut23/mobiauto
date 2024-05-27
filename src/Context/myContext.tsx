@@ -10,12 +10,16 @@ interface Form{
 
 interface MyContextType {
     form: Form;
-    setForm: React.Dispatch<React.SetStateAction<Form>>
+    setForm: React.Dispatch<React.SetStateAction<Form>>,
+    showPrice: boolean,
+    setShowPrice: React.Dispatch<React.SetStateAction<boolean>>,
   }
   
   const defaultState: MyContextType = {
     form: {marca: "", modelo: "", ano: "", event: false},
     setForm: () => {},
+    showPrice: false,
+    setShowPrice: () => {}
   };
 
 export const MyContext = createContext<MyContextType>(defaultState);
@@ -26,6 +30,7 @@ interface MyProviderProps {
 
 export const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
   const [form, setForm] = useState<Form>({marca: "", modelo: "", ano: "", event: false})
+  const [showPrice, setShowPrice] = useState<boolean>(false);
 
   useEffect(() => {
     if(form.modelo !== "")
@@ -38,7 +43,7 @@ export const MyProvider: React.FC<MyProviderProps> = ({ children }) => {
   }, [form.modelo])
 
 
-  const memoBrand = useMemo(() => ({form, setForm}),[form])
+  const memoBrand = useMemo(() => ({form, setForm, showPrice, setShowPrice}),[form, showPrice])
 
 
   return (

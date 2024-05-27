@@ -1,5 +1,5 @@
 import useInput from "@/Hooks/useInput"
-import { Autocomplete, MenuItem, TextField, Select, InputLabel, FormControl } from "@mui/material"
+import { MenuItem, Select, InputLabel, FormControl } from "@mui/material"
 
 interface Model{
     label: string,
@@ -7,10 +7,10 @@ interface Model{
 }
 
 interface Form{
-    marca: string
-    modelo: string
-    ano: string
-    event: boolean
+    marca: string,
+    modelo: string,
+    ano: string,
+    event: boolean,
 }
 
 interface SearchProps {
@@ -24,8 +24,6 @@ interface SearchProps {
 const SearchInput: React.FC<SearchProps> = ({type, options, value, setValue}) => {
 
     const {inputValue, changeHandler} = useInput({type, value, setValue, options});
-
-    console.log(type, value);
 
     return(
     <FormControl sx={{minWidth: "80%"}} required disabled={options.length < 1}>
